@@ -1,0 +1,7 @@
+1- Duplicate Rooms (non start nor end) DONE
+2- Repeating coordinates (if you want to handle it) DONE
+3- Non valid line (for example: 'a') Already Handled
+4- invalid link/room extra stuff plus room linked to itself plus spaces to links/rooms error details/format Already Handled
+5- new lines (if you want to deal with it) NAH
+6- set a limit to the number of ants. DONE
+7- "-021" gives no error message. DONE
