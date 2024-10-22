@@ -1,0 +1,10 @@
+{
+    "code-runner.customCommand": "clear;go run . sample.txt out.txt",
+    // "code-runner.customCommand": "clear;go test -v . -run TestReloaded",
+    "cSpell.words": [
+        "punc",
+        "puncs",
+        "splitted",
+        "whaaaat"
+    ]
+}
