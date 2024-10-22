@@ -1,0 +1,70 @@
+{{define "content" }}
+<div class="error">
+<h1>{{.ShortDesc}} - {{.Status}}</h1>
+<h2>{{.Desc}}</h2>
+<br>
+    <a href="/">
+        Return to Home Page
+    </a>
+</div>
+{{end}}
+
+{{template "signbase.html" .}}
+
+<style>
+    * { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+} 
+
+body { 
+    font-family: "Catamaran", sans-serif; 
+    background-color: #111111;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    padding: 0 10px; 
+    overflow: hidden; 
+} 
+
+.error { 
+    text-align: center; 
+    background-color: #1e1e1e;
+    padding: 4vw;
+    border-radius: 1vw; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 7px 24px rgba(0, 0, 0, 0.3);
+    max-width: 90vw; 
+    width: 100%; 
+    box-sizing: border-box; 
+} 
+
+h1 { 
+    color: #bbbbbb; 
+    font-size: 6vw; 
+    margin-bottom: 2vw; 
+} 
+
+h2 { 
+    color: #aaaaaa; 
+    font-size: 4vw; 
+    margin-bottom: 4vw; 
+} 
+
+a { 
+    text-decoration: none; 
+    background-color: #3b3b3b; 
+    color: #cccccc; 
+    padding: 1.5vw 3vw; 
+    border-radius: 0.8vw; 
+    font-weight: bold; 
+    transition: background-color 0.3s ease; 
+    font-size: 2vw;
+    display: inline-block; 
+} 
+
+a:hover { 
+    background-color: #464646; 
+}
+</style>

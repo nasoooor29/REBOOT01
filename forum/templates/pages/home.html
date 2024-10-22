@@ -1,0 +1,368 @@
+{{ define "content"}}
+
+<body id="content">
+  <div id="welcome-section">
+    <div id="welcome-text">
+      <h1>Welcome To Space Chat</h1>
+      <p>
+        Welcome to our vibrant community forum, a place where ideas meet
+        inspiration and knowledge is shared freely. Whether you're here to ask
+        questions, share your experiences, or connect with like-minded
+        individuals, we're thrilled to have you. Dive into discussions, explore
+        diverse topics, and let's build amazing community together!
+      </p>
+
+      {{if .LoggedIn}}
+      <div id="explore">
+        <a href="/posts/1"><button id="explore-button">Explore Now</button></a>
+      </div>
+
+      {{else}}
+      <div id="welcome-buttons">
+        <a href="/signUp"><button id="join-button">Join Us</button></a>
+        <a href="/signIn"><button id="signin-button">Sign In</button></a>
+      </div>
+      {{end}}
+    </div>
+    <div id="welcome-image">
+      <!-- <img src="home.jpg" alt="Welcome Image"> -->
+    </div>
+  </div>
+
+
+  {{if .ArrInfo}}
+  <div id="most-popular-heading">
+    <h2>The Most Popular Posts</h2>
+  </div>
+
+  <div id="popular-post">
+    <div id="popular-bottom-post">
+       {{range .ArrInfo}}
+      <div id="post-list">
+        <div id="publisher-box">
+          <div id="pfp"></div>
+          <p id="publisher-name">{{.PublisherName}}</p>
+        </div>
+        <div id="post-title-box">
+          <p id="post-title">{{.PostTitle}}</p>
+        </div>
+        <pre id="post-body">{{.PostBody}}</pre>
+        <div id="post-details">
+          <div id="comment-box">
+            <svg
+              id="comment-logo"
+              data-slot="icon"
+              fill="none"
+              stroke-width="1.5"
+              stroke="#bbbbbb"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+              ></path>
+            </svg>
+            <p id="comments">{{.PostComments}} Comments</p>
+          </div>
+          <p id="date">{{.PostDate}}</p>
+        </div>
+      </div>
+      {{end}} {{else}}
+      <!-- <p id="no-posts">No Posts Yet :(</p> -->
+      {{end}}
+    </div>
+  </div>
+</body>
+
+<style>
+  #welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: #111111;
+    /* background-color: #010101; */
+    color: white;
+    min-height: 80vh;
+  }
+
+  #welcome-text {
+    width: 50%;
+  }
+
+  #welcome-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  #welcome-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  #welcome-buttons {
+    display: flex;
+    /* justify-content: center; */
+    gap: 20px;
+  }
+
+  #explore {
+    display: flex;
+    justify-content: left;
+  }
+
+  #welcome-buttons button,
+  #explore button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #1e1e1e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #welcome-buttons button:hover,
+  #explore button:hover {
+    background-color: #555555;
+  }
+
+  #welcome-image {
+    width: 500px;
+    height: 500px;
+    margin-right: 90px;
+    background-image: url("/static/space.png");
+    background-size: cover;
+    background-position: center;
+    /* margin-bottom: 50px; */
+    /* border-radius: 10px; */
+  }
+
+  #content {
+    min-height: 100dvh;
+    background-color: #111111;
+  }
+
+  #popular-post {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: #111111;
+    justify-content: center;
+    align-content: center;
+  }
+
+  #popular-bottom-post {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 99dvw;
+    gap: 35px;
+    justify-content: space-evenly;
+  }
+
+  #most-popular-heading {
+    text-align: center;
+    /* margin-left: 50px; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #most-popular-heading h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  #content {
+    /* height: 100%;
+            height: 1rem;
+            height: 1em;
+            height: 1px; */
+    min-height: 100dvh;
+    /* height: 1vw; */
+
+    background-color: #111111;
+  }
+
+  .text-body {
+    color: rgb(225, 221, 221);
+  }
+
+  #popular-post {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: #111111;
+    /* height: 653px; */
+    justify-content: center;
+    align-content: center;
+  }
+
+  #popular-bottom-post {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 99dvw;
+    gap: 35px;
+    /* padding-left: 60px; */
+    justify-content: space-evenly;
+  }
+
+  #post-list {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    align-self: center;
+    justify-content: space-evenly;
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem; */
+    gap: 1rem;
+    /* border: 3px solid gray; */
+    border-radius: 5px;
+    width: 370px;
+    height: 230px;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 7px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  #publisher-box {
+    display: flex;
+    width: 122px;
+    gap: 0.5rem;
+    margin-left: 10px;
+    margin-right: auto;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #pfp {
+    width: 25px;
+    height: 25px;
+    background-color: gray;
+    border-radius: 25px;
+  }
+
+  #publisher-name {
+    color: gray;
+    text-align: center;
+    font-size: small;
+  }
+
+  #post-title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 28px;
+  }
+
+  #post-title {
+    color: #ddd;
+    font-size: 1.2rem;
+  }
+
+  #comment-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 107px;
+    height: 20px;
+  }
+
+  #comment-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+    margin-bottom: 2px;
+  }
+
+  #comments {
+    text-align: center;
+    color: #ddd;
+    font-size: small;
+  }
+
+  #post-body {
+    color: gray;
+    width: 90%;
+    border-radius: 0.375rem;
+    /* border: 1px solid #808080; */
+    padding: 0.75rem 1rem;
+    outline: 0;
+    background-color: #1e1e1e;
+    /* color: rgba(243, 244, 246, 1); */
+    height: 76px;
+    font-size: 1rem;
+    resize: none;
+    overflow-y: auto;
+  }
+
+  /* .scrollbar {
+        overflow-y: auto;
+        height: 100%;
+        padding-right: 20px;
+    } */
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #444 #2b2c2d;
+  }
+
+  *::-webkit-scrollbar {
+    width: 0.9375rem;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #2b2c2d;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 1.25rem;
+    border: 0.1875rem solid #2b2c2d;
+  }
+
+  #post-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 400px;
+  }
+
+  #date {
+    width: 150px;
+    color: #ddd;
+    font-size: small;
+  }
+
+  #no-posts {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 1.25rem;
+  }
+
+  /* #remove-post-butt {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        right: 500px;
+        bottom: 500px;
+        background-color: aqua;
+    } */
+
+  /* #testing:active {
+        display: block;
+    } */
+</style>
+{{ end }} {{template "base.html" .}}

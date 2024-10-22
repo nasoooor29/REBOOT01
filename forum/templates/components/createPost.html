@@ -1,0 +1,282 @@
+<div class="hide" id="create">
+    <div id="mother-container">
+        <div class="form-container">
+            <button type="button" id="exit-button">&gt;</button>
+            <p class="title">Create Post</p>
+            <form action="/createPost" method="post">
+                <div class="input-group">
+                    <p class="header">Post Title</p>
+                    <input id="title-id" type="text" name="post-title" placeholder="Title" required>
+                </div>
+                <br>
+                <div class="input-group">
+                    <p class="header">Post Body</p>
+                    <!-- <input type="text" name="body" placeholder="Body"> -->
+                    <textarea id="body-id" name="body" placeholder="Write something here..." required></textarea>
+                </div>
+                <br>
+                <p class="header">Categories</p>
+                <div id="cat-flex">
+                    <label><input class="check" type="checkbox" name="Category" value="2">General</label>
+                    <label><input class="check" type="checkbox" name="Category" value="1">Sport</label>
+                    <label><input class="check" type="checkbox" name="Category" value="3">Technology</label>
+                    <label><input class="check" type="checkbox" name="Category" value="4">Entertainment</label>
+                    <label><input class="check" type="checkbox" name="Category" value="5">Health</label>
+                    <label><input class="check" type="checkbox" name="Category" value="6">Business</label>
+                    <label><input class="check" type="checkbox" name="Category" value="7">Science</label>
+                    <label><input class="check" type="checkbox" name="Category" value="8">Education</label>
+                    <label><input class="check" type="checkbox" name="Category" value="9">Travel</label>
+                </div>
+                <br>
+                <input disabled id="submit" type="submit" name="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+<button id="add-post-butt">&lt;</button>
+
+<style>
+    #mother-container {
+        display: flex;
+        height: 79dvh;
+        align-items: center;
+        justify-content: center;
+        background-color: #202020;
+    }
+
+
+    /* body {
+        overflow: hidden;
+        background-color: #111111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        } */
+
+    .form-container {
+        position: relative;
+        width: 320px;
+        border-radius: 0.75rem;
+        background-color: #1E1E1E;
+        /* border: 2px solid #808080; */
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 7px 24px rgba(0, 0, 0, 0.3);
+        color: rgba(243, 244, 246, 1);
+        padding: 2rem;
+
+    }
+
+
+
+    #exit-button {
+        color: whitesmoke;
+        position: absolute;
+        font-size: x-large;
+        right: 10px;
+        top: 10px;
+        border: 0px;
+        background-color: #1E1E1E;
+
+    }
+
+    #exit-button:active {
+        color: rgba(245, 245, 245, 0.674);
+    }
+
+    .title {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 700;
+    }
+
+    .header {
+        margin-bottom: 0.25rem;
+        font-size: large;
+    }
+
+    .form {
+        margin-top: 1.5rem;
+    }
+
+    #cat-flex {
+        /* display: flex;
+        width: 90%;
+        background-color: red; */
+        width: 60px;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    label {
+        display: block;
+        color: #808080;
+        width: max-content;
+    }
+
+    .input-group {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+
+    .input-group label {
+        display: block;
+        background-color: #f87171;
+        color: rgba(156, 163, 175, 1);
+        margin-bottom: 4px;
+    }
+
+    .input-group input {
+        width: 90%;
+        border-radius: 0.375rem;
+        border: 1px solid #808080;
+        outline: 0;
+        background-color: #2B2C2D;
+        padding: 0.75rem 1rem;
+        color: rgba(243, 244, 246, 1);
+    }
+
+    .input-group textarea {
+        width: 90%;
+        border-radius: 0.375rem;
+        border: 1px solid #808080;
+        outline: 0;
+        background-color: #2B2C2D;
+        padding: 0.75rem 1rem;
+        color: rgba(243, 244, 246, 1);
+        height: 250px;
+        resize: none
+    }
+
+    .input-group input:focus {
+        border-color: #0497A0;
+    }
+
+    .input-group textarea:focus {
+        border-color: #0497A0;
+    }
+
+    #add-post-butt {
+        height: 75px;
+        width: 75px;
+        position: fixed;
+        border-radius: 50%;
+        border: #1E2022 1px solid;
+        bottom: 20px;
+        right: 10px;
+        font-size: x-large;
+    }
+
+    #submit {
+        opacity: 0.7;
+        display: block;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        text-align: center;
+        color: #111111;
+        border: none;
+        border-radius: 0.375rem;
+        font-weight: 600;
+    }
+
+    #create {
+        /* background-color: blue; */
+        position: fixed;
+        right: 1px;
+        bottom: 86px;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .error-msg {
+        color: #f87171;
+        margin-top: 1rem;
+        text-align: left;
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+</style>
+
+<script>
+    let createPage = document.getElementById("create")
+    let cats = document.getElementsByClassName("check")
+    let addButt = document.getElementById("add-post-butt")
+    let remButt = document.getElementById("exit-button")
+    let title = document.getElementById("title-id")
+    let body = document.getElementById("body-id")
+    let submit = document.getElementById("submit")
+    let titleData = ""
+    let bodyData = ""
+
+    function hide() {
+        createPage.classList.remove('hide');
+        addButt.classList.add('hide')
+        remButt.classList.remove('hide')
+    }
+    function appear() {
+        createPage.classList.add('hide');
+        addButt.classList.remove('hide')
+        remButt.classList.add('hide')
+    }
+
+    addButt.addEventListener('click', hide)
+    remButt.addEventListener('click', appear)
+
+    title.addEventListener('input', (e) => {
+        titleData = e.target.value
+        if (titleData.trim().length != 0 && bodyData.trim().length != 0 && titleData.length <= 30 && checkboxes()) {
+            submit.style.opacity = 1
+            submit.disabled = false
+        } else {
+            submit.style.opacity = 0.7
+            submit.disabled = true
+        }
+    })
+    body.addEventListener('input', (e) => {
+        bodyData = e.target.value
+        if (titleData.trim().length != 0 && bodyData.trim().length != 0 && titleData.length <= 30 && checkboxes()) {
+            submit.style.opacity = 1
+            submit.disabled = false
+        } else {
+            submit.style.opacity = 0.7
+            submit.disabled = true
+        }
+    })
+
+
+    function checkboxes() {
+        let flag = false
+        Array.from(cats).forEach(function (element) {
+            if (element.checked) {
+                console.log(12);
+                flag = true
+            }
+        })
+
+        return flag
+    }
+
+
+
+    Array.from(cats).forEach(function (element) {
+        element.addEventListener('change', function () {
+            if (checkboxes() && titleData.trim().length != 0 && bodyData.trim().length != 0 && titleData.length <= 30) {
+                submit.style.opacity = 1
+                submit.disabled = false
+            } else {
+                submit.style.opacity = 0.7
+                submit.disabled = true
+            }
+
+        });
+    })
+
+
+
+</script>

@@ -1,0 +1,655 @@
+{{ define "content"}}
+<div class="main-container">
+  <!-- title stuff -->
+  <div class="post-title-container">
+    <div class="title-con">
+      <svg
+        id="hash"
+        data-slot="icon"
+        fill="none"
+        stroke-width="2.5"
+        stroke="#bbbbbb"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"
+        ></path>
+      </svg>
+      <h1 class="post-title">{{ .PostTitle }}</h1>
+    </div>
+    <div class="post-info">
+      <span class="material-symbols-outlined"> person </span>
+      <div class="author">{{ .Username }}</div>
+      <span class="material-symbols-outlined"> schedule </span>
+      <div class="post-date-created">{{ .PostDate }}</div>
+      <svg
+        id="category-icon"
+        data-slot="icon"
+        data-darkreader-inline-stroke=""
+        fill="none"
+        stroke-width="1.5"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 6h.008v.008H6V6Z"
+        ></path>
+      </svg>
+      <div class="category">{{ .Category }}</div>
+      <svg
+        id="comment-icon"
+        data-slot="icon"
+        fill="none"
+        stroke-width="1.5"
+        stroke="#bbbbbb"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+        ></path>
+      </svg>
+      <div class="comment-count">{{ .CommentCount }}</div>
+    </div>
+  </div>
+
+  <!-- post stuff -->
+  <div class="post-container">
+    <div class="author-details">
+      <div class="profile-picture">
+        <img src="" alt="" />
+      </div>
+      <!-- <img class="profile-picture" src="" alt="" /> -->
+      <div class="author1">{{ .Username }}</div>
+      <!-- <div class="email"> .Email </div> -->
+    </div>
+    <div class="post">
+      <!-- <div class="post-header">
+        <span id="post-date-icon" class="material-symbols-outlined">
+          schedule
+        </span>
+        <svg class="date" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
+        </svg>
+        <div class="date-created"> .PostDate</div>
+      </div> -->
+      <div class="post-content-body">
+        <pre class="message-main">{{.PostMessage}}</pre>
+      </div>
+      <div class="vote-container">
+        {{ if .LoggedIn }}
+        <button onclick="likeSinglePost('{{.PostID}}')">
+          <svg
+            id="upvote-icon"
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            stroke="#bbbbbb"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style="cursor: pointer"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"
+            ></path>
+          </svg>
+        </button>
+        <div id="count-like-{{.PostID}}" class="upvote-count">
+          {{.PostUpvote}}
+        </div>
+
+        <button onclick="dislikeSinglePost('{{.PostID}}')">
+          <svg
+            id="downvote-icon"
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            stroke="#bbbbbb"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style="cursor: pointer"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54"
+            ></path>
+          </svg>
+        </button>
+        {{ else }}
+        <svg
+          id="upvote-icon"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="#bbbbbb"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          style="cursor: not-allowed"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"
+          ></path>
+        </svg>
+        <div id="count-like-{{.PostID}}" class="upvote-count">
+          {{ .PostUpvote }}
+        </div>
+        <svg
+          id="downvote-icon"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="#bbbbbb"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          style="cursor: not-allowed"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54"
+          ></path>
+        </svg>
+        {{ end }}
+
+        <div id="count-dislike-{{.PostID}}" class="downvote-count">
+          {{ .PostDownvote }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- comments stuff -->
+  {{ range .CommentArr }}
+  <div class="comment-container">
+    <div class="comment-author-details">
+      <div class="profile-picture">
+        <img src="" alt="" />
+      </div>
+      <!-- <img class="profile-picture" src="" alt="" /> -->
+      <div class="author1">{{ .Username }}</div>
+      <!-- <div class="email"> .Email </div> -->
+    </div>
+    <div class="comment">
+      <div class="comment-header">
+        <!-- <span id="comment-date-icon" class="material-symbols-outlined">
+          schedule
+        </span> -->
+        <svg
+          class="date"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="#bbbbbb"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
+          ></path>
+        </svg>
+        <div class="comment-date-created">{{ .CreatedAt }}</div>
+      </div>
+      <div class="content-body">
+        <pre class="message-main">{{ .Content }}</pre>
+      </div>
+      <div class="interaction-container">
+        <!-- <span id="like" class="material-symbols-outlined"> thumb_up </span> -->
+        {{ if .LoggedIn }}
+        <button onclick="likeComment('{{.CommentID}}')">
+          <svg
+            id="like-icon"
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            stroke="#bbbbbb"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style="cursor: pointer"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+            ></path>
+          </svg>
+        </button>
+        <div id="comment-likes-{{.CommentID}}" class="like-count">
+          {{ .Like }}
+        </div>
+        <button onclick="dislikeComment('{{.CommentID}}')">
+          <svg
+            id="dislike-icon"
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            stroke="#bbbbbb"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style="cursor: pointer"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 16.318A4.486 4.486 0 0 0 12.016 15a4.486 4.486 0 0 0-3.198 1.318M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+            ></path>
+          </svg>
+        </button>
+        {{ else }}
+        <svg
+          id="like-icon"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="#bbbbbb"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          style="cursor: not-allowed"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+          ></path>
+        </svg>
+        <div class="like-count">{{ .Like }}</div>
+
+        <svg
+          id="dislike-icon"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="#bbbbbb"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          style="cursor: not-allowed"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.182 16.318A4.486 4.486 0 0 0 12.016 15a4.486 4.486 0 0 0-3.198 1.318M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+          ></path>
+        </svg>
+        {{ end }}
+        <div id="comment-dislikes-{{.CommentID}}" class="dislike-count">
+          {{ .Dislike }}
+        </div>
+        <!-- <span id="dislike" class="material-symbols-outlined"> thumb_down </span> -->
+      </div>
+    </div>
+  </div>
+  {{ end }} {{if .ErrorMessage}}
+  <div class="error-message">{{.ErrorMessage}}</div>
+  {{end}}
+
+  <!-- reply stuff -->
+  {{ if .LoggedIn }}
+  <div class="comment-box-container">
+    <form method="post" action="/post/{{ .PostID }}">
+      <div class="reply-container">
+        <textarea
+          name="user-comment"
+          class="reply-box"
+          placeholder="Type your comment here..."
+          required
+        ></textarea>
+        <button class="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  {{ else }}
+  <p id="message">
+    Looks like you need
+    <a href="/signIn" id="special-clearance">NASA clearance</a> just to land a
+    comment here!
+  </p>
+  {{ end }}
+</div>
+
+<script src="../static/likes.js"></script>
+
+<style>
+  body {
+    background-color: #111111;
+    margin: 0;
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .post-title-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 10px;
+  }
+
+  .post-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ccc;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .title-con {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  #hash {
+    margin-top: 25px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .post-info {
+    display: flex;
+    color: #999999;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1rem;
+  }
+
+  .category {
+    display: inline-block;
+    background-color: #3a3b3bcd;
+    padding: 7px;
+    color: gray;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .vote-container,
+  .interaction-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #999999;
+    margin-top: 0.5rem;
+  }
+
+  .vote-container svg,
+  .interaction-container svg {
+    transition: transform 0.2s ease;
+  }
+
+  .vote-container svg:hover,
+  .interaction-container svg:hover {
+    transform: scale(1.2);
+  }
+
+  #comment-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .date {
+    height: 20px;
+    width: 20px;
+  }
+
+  #category-icon,
+  #upvote-icon,
+  #downvote-icon,
+  #like-icon,
+  #dislike-icon {
+    width: 30px;
+    height: 30px;
+    /* cursor: pointer; */
+  }
+
+  button {
+    background-color: #1e1e1e;
+    border: 2px solid #1e1e1e;
+  }
+
+  .post-container,
+  .comment-container {
+    display: flex;
+    width: 90%;
+    /* border: 3px solid gray; */
+    box-shadow:
+      0 0.3125rem 0.625rem rgba(0, 0, 0, 0.5),
+      0 0.4375rem 1.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    box-sizing: border-box;
+    min-height: 300px;
+  }
+
+  .author-details,
+  .comment-author-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-width: 20%;
+    padding: 1rem;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    color: #999999;
+    font-size: 0.75rem;
+  }
+
+  .author1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+
+  .email {
+    word-break: break-all;
+  }
+
+  .post,
+  .comment {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 1.5rem;
+    gap: 1rem;
+    justify-content: space-evenly;
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .comment-container {
+    height: 300px;
+  }
+
+  .message-main {
+    font-size: 1.2rem;
+  }
+
+  /* .post-content-body {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 1000px;
+    overflow-y: auto;
+    color: #808080;
+    min-height: 200px;
+  } */
+
+  .content-body,
+  .post-content-body {
+    height: 200px;
+    width: 60vw;
+    overflow-y: auto;
+    color: #808080;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #444 #2b2c2d;
+  }
+
+  *::-webkit-scrollbar {
+    width: 0.9375rem;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #2b2c2d;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 1.25rem;
+    border: 0.1875rem solid #2b2c2d;
+  }
+
+  .post-date-created {
+    font-size: 0.9rem;
+    color: #999999;
+  }
+
+  .comment-header,
+  .post-header {
+    display: flex;
+    border-bottom: 2px solid;
+    color: #999999;
+    gap: 0.5rem;
+    padding: 10px;
+  }
+
+  .comment-date-created {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #999999;
+  }
+
+  #comment-date-icon,
+  #post-date-icon {
+    /* padding: 10px; */
+    font-size: 0.75rem;
+    color: #999999;
+  }
+
+  .date-created {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #999999;
+  }
+
+  .comment-box-container {
+    width: 90%;
+  }
+
+  .reply-container {
+    display: flex;
+    flex-direction: column;
+    /* border: 3px solid gray; */
+    box-shadow:
+      0 0.3125rem 0.625rem rgba(0, 0, 0, 0.5),
+      0 0.4375rem 1.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #1e1e1e;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    min-height: 250px;
+    justify-content: space-around;
+  }
+
+  .reply-box {
+    width: 100%;
+    height: 6rem;
+    padding: 1rem;
+    resize: none;
+    background-color: #2b2c2d;
+    border-radius: 10px;
+    color: #f3f4f6;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    border: none;
+  }
+
+  .submit {
+    background-color: #bbbbbb;
+    padding: 0.75rem 1.5rem;
+    /* padding: 0.75rem; */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #2c2c2c;
+    font-weight: 600;
+    border-radius: 30px;
+    /* border: none; */
+    cursor: pointer;
+  }
+
+  .submit:hover {
+    background-color: #a0a0a0;
+    /* padding: 0.75rem 1.5rem; */
+    border-radius: 30px;
+  }
+
+  .error-message {
+    color: #a44a4a;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  #message {
+    color: gray;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  #special-clearance {
+    color: #1a0dab;
+    text-decoration: underline;
+  }
+</style>
+{{ end }} {{template "base.html" .}}
+

@@ -1,0 +1,392 @@
+{{ define "content" }}
+
+<div class="container">
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-pic">
+        <img src="{{.Img}}" />
+      </div>
+
+      <!-- <div class="upload-img">
+        <svg
+          id="img"
+          data-slot="icon"
+          fill="none"
+          stroke-width="1.5"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+          ></path>
+        </svg>
+      </div> -->
+
+      <div class="user-info">
+        <h2 class="username">{{.Username}}</h2>
+        <p class="email">{{.Email}}</p>
+
+        <div id="likes" class="like-box">
+          <svg
+            id="heart"
+            data-slot="icon"
+            fill="currentColor"
+            stroke-width="3.5"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+            ></path>
+          </svg>
+          <p class="total-likes">{{.TotalLikes}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="user-posts">
+        <h3>Your Posts</h3>
+        <div class="scrollbar">
+          <div class="posts">
+            {{ if .UserPosts }} {{ range .UserPosts }}
+            <a href="/post/{{ .Id }}" class="post-link">
+              <div class="post">
+                <h2 class="post-title">{{ .Title }}</h2>
+                <div class="comments-likes">
+                  <div id="comment-box">
+                    <svg
+                      id="comment-logo"
+                      data-slot="icon"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke="#bbbbbb"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+                      ></path>
+                    </svg>
+                    <p id="comments">{{ .Comments }} Comments</p>
+                  </div>
+
+                  <div id="liked-box">
+                    <svg
+                      id="like-logo"
+                      data-slot="icon"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke="#bbbbbb"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      ></path>
+                    </svg>
+                    <p id="likes">{{.Likes}} Likes</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {{ end }} {{ else }}
+            <p class="no-posts">No posts yet :(</p>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+      <div class="liked-posts">
+        <h3>Liked Posts</h3>
+        <div class="scrollbar">
+          <div class="posts">
+            {{ if .LikedPosts }} {{ range .LikedPosts }}
+            <a href="/post/{{ .Id }}" class="post-link">
+              <div class="post">
+                <h2 class="post-title">{{ .Title }}</h2>
+                <div class="comments-likes">
+                  <div id="comment-box">
+                    <svg
+                      id="comment-logo"
+                      data-slot="icon"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke="#bbbbbb"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+                      ></path>
+                    </svg>
+                    <p id="comments">{{ .Comments }} Comments</p>
+                  </div>
+
+                  <div id="liked-box">
+                    <svg
+                      id="like-logo"
+                      data-slot="icon"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke="#bbbbbb"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      ></path>
+                    </svg>
+                    <p id="likes">{{.Likes}} Likes</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {{ end }} {{ else }}
+            <p class="no-posts">No liked posts yet :(</p>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background-color: #111111;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 83dvh;
+    background-color: #111111;
+  }
+
+  .profile-container {
+    width: 56.25rem;
+    background-color: #1e1e1e;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.5),
+      0 0.4375rem 1.5rem rgba(0, 0, 0, 0.3); /* 0 5px 10px, 0 7px 24px */
+    padding: 1.875rem;
+    margin-top: 1.875rem;
+    overflow: hidden;
+  }
+
+  .profile-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 0.125rem solid #333333;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .profile-pic {
+    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1.25rem;
+    background-color: #808080;
+    border: 0.125rem solid #dddddd;
+    position: relative;
+  }
+
+  .user-info {
+    flex-grow: 1;
+  }
+
+  .username {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #eeeeee;
+    margin: 0;
+  }
+
+  .email {
+    font-size: 1rem;
+    color: #bbbbbb;
+    margin: 0.3125rem 0;
+  }
+
+  .total-likes {
+    font-size: 1rem;
+    color: #999999;
+  }
+
+  .profile-content {
+    display: flex;
+    justify-content: space-between;
+    height: 20rem;
+  }
+
+  .liked-posts,
+  .user-posts {
+    width: 48%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-right: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.9375rem;
+    border-bottom: 0.125rem solid #333333;
+    padding-bottom: 0.3125rem;
+    color: #eeeeee;
+  }
+
+  .post {
+    background-color: #2e2e2e;
+    border: 0.0625rem solid #444444;
+    border-radius: 0.3125rem;
+    padding: 0.9375rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .post-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #eeeeee;
+    margin: 0;
+    margin-top: 0.5rem;
+  }
+
+  .comments-likes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #bbbbbb;
+  }
+
+  .no-posts {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 6.25rem;
+    color: #bbbbbb;
+    margin-top: 1.25rem;
+    font-size: 1.125rem;
+  }
+
+  #comment-box,
+  #liked-box,
+  .like-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #comment-logo,
+  #like-logo {
+    width: 0.9375rem;
+    height: 0.9375rem;
+    border-radius: 25px;
+    margin-bottom: 0.125rem;
+    margin-right: 0.3125rem;
+    color: #bbbbbb;
+  }
+
+  #comment-box,
+  #liked-box {
+    margin-top: 0.625rem;
+  }
+
+  #comment-logo,
+  #like-logo {
+    margin-bottom: 0.125rem;
+  }
+
+  #heart {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 25px;
+    margin-bottom: 0.125rem;
+    margin-right: 0.3125rem;
+    color: #999999;
+  }
+
+  .scrollbar {
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 1.25rem;
+  }
+
+  .upload-img {
+    position: absolute;
+    top: 5.3125rem;
+    left: 5.3125rem;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.1875rem;
+    height: 2.1875rem;
+    border-radius: 50%;
+    background: #2e2e2ea3;
+  }
+
+  #img {
+    color: #ffffff;
+    width: 1.5625rem;
+    height: 1.5625rem;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #444 #2b2c2d;
+  }
+
+  *::-webkit-scrollbar {
+    width: 0.9375rem;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #2b2c2d;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 1.25rem;
+    border: 0.1875rem solid #2b2c2d;
+  }
+
+  .post-link:hover,
+  .post-link {
+    text-decoration: none;
+  }
+</style>
+{{ end }} {{template "base.html" .}}

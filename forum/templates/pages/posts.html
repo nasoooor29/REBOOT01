@@ -1,0 +1,404 @@
+{{define "content"}}
+
+<div id="posts-container">
+    <div id="categories">
+        <h1>Categories</h1>
+        <form id="categories-form" method="get" action="/posts/1">
+            <div id="category-checkbox">
+                <label><input class="box" type="checkbox" name="Category" value="2"> General</label>
+                <label><input class="box" type="checkbox" name="Category" value="1"> Sport</label>
+                <label><input class="box" type="checkbox" name="Category" value="3"> Technology</label>
+                <label><input class="box" type="checkbox" name="Category" value="4"> Entertainment</label>
+                <label><input class="box" type="checkbox" name="Category" value="5"> Health</label>
+                <label><input class="box" type="checkbox" name="Category" value="6"> Business</label>
+                <label><input class="box" type="checkbox" name="Category" value="7"> Science</label>
+                <label><input class="box" type="checkbox" name="Category" value="8"> Education</label>
+                <label><input class="box" type="checkbox" name="Category" value="9"> Travel</label>
+            </div>
+            <button type="submit" id="filter-button">Apply Filter</button>
+        </form>
+
+    </div>
+
+    <div id="post-list-container">
+
+        {{if .Posts}}
+        {{range .Posts}}
+
+
+        <div id="post-list">
+            <div id="publisher-box">
+                <div id="pfp"></div>
+                <p id="publisher-name">{{.PublisherName}}</p>
+            </div>
+            <div id="Category-bx">
+                <p id="categories-list">{{.PostCategories}}</p>
+            </div>
+            <div id="post-title-box">
+                <p id="post-title">{{.PostTitle}}</p>
+            </div>
+            <a href="/post/{{.PostId}}" class="post-link">
+                <pre id="post-body"> {{.PostBody}} </pre>
+            </a>
+            <div id="post-details">
+                <div id="date-box">
+                    <svg id="date-logo" data-slot="icon" fill="none" stroke-width="1.5" stroke="#bbbbbb"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
+                        </path>
+                    </svg>
+                    <p id="date">{{.PostDate}} </p>
+                </div>
+
+                <div id="comment-box">
+                    <svg id="comment-logo" data-slot="icon" fill="none" stroke-width="1.5" stroke="#bbbbbb"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z">
+                        </path>
+                    </svg>
+                    <p id="comments">{{.PostComments}}</p>
+                </div>
+
+                <div id="liked-box">
+                    <button id="like-img" class="like-dislike-button" onclick="likePost('{{.PostId}}', '{{.Logged}}' )">
+                        <svg id="like-logo" data-slot="icon" fill="none" stroke-width="1.5" stroke="#bbbbbb"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z">
+                            </path>
+                        </svg>
+                    </button>
+
+                    </svg>
+                    <p class="likes" id="likes-{{.PostId}}">{{.PostLike}}</p>
+                </div>
+
+                <div id="dislike-box">
+                    <button id="dislike-img" class="like-dislike-button"
+                        onclick="dislikePost('{{.PostId}}', '{{.Logged}}')">
+                        <svg id="dislike-logo" data-slot="icon" fill="none" stroke-width="1.5" stroke="#bbbbbb"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54">
+                            </path>
+                        </svg>
+                    </button>
+                    <p class="dislikes" id="dislikes-{{.PostId}}">{{.PostDislike}}</p>
+                </div>
+            </div>
+        </div>
+
+        {{end}}
+
+
+        <div id="next-prev">
+            <button id="prev-page">← </br>Prev</button>
+            <span id="page-number">{{.PgNum}}</span>
+            <button id="next-page">Next </br> →</button>
+        </div>
+
+        {{else}}
+        <p id="no-posts">No posts yet :(</p>
+        {{end}}
+
+
+    </div>
+    <div id="pages">{{.Pages}}</div>
+</div>
+{{end}}
+
+
+
+{{template "base.html" .}}
+
+
+
+<script src="../static/likes.js"></script>
+<script src="../static/pageNexter.js"></script>
+
+<style>
+    body {
+        background-color: #111111;
+    }
+
+    #posts-container {
+        display: flex;
+        min-height: 100dvh;
+        padding: 1.25rem;
+    }
+
+    #categories {
+        width: 20%;
+        background-color: #1E1E1E;
+        padding: 1.25rem;
+        border-radius: 0.3125rem;
+        margin-right: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 20%;
+    }
+
+    #categories h1 {
+        color: #bbb;
+        margin-bottom: 1.25rem;
+        font-size: 2.5rem;
+    }
+
+    .box {
+        padding-top: 0.625rem;
+        width: 1.875rem;
+        height: 1.6875rem;
+    }
+
+    #categories-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #category-checkbox {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1.25rem;
+    }
+
+    #category-checkbox label {
+        font-size: 1.7rem;
+        color: gray;
+        padding: 1.25rem;
+        font-weight: bold;
+    }
+
+    #filter-button {
+        width: 9.375rem;
+        height: 3.125rem;
+        font-size: 1rem;
+        background-color: #444444;
+        color: white;
+        padding: 0.625rem 1.25rem;
+        border: none;
+        border-radius: 0.3125rem;
+        cursor: pointer;
+    }
+
+    #filter-button:hover {
+        background-color: #555555;
+    }
+
+    #popular-bottom-post {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        width: 100%;
+        gap: 2.1875rem;
+        justify-content: flex-start;
+    }
+
+    #right-container {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    #post-list-container {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        border-radius: 0.3125rem;
+    }
+
+    #post-list {
+        display: flex;
+        flex-direction: column;
+        background-color: #1E1E1E;
+        padding: 1.5rem;
+        gap: 1rem;
+        box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.5), 0 0.4375rem 1.5rem rgba(0, 0, 0, 0.3);
+        border-radius: 0.3125rem;
+        width: 50rem;
+        height: 18.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    #publisher-box,
+    #post-title-box,
+    #post-details {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #pfp {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: gray;
+        border-radius: 1.5625rem;
+    }
+
+    #publisher-name {
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+    #post-title {
+        color: #ddd;
+        font-size: 1.5rem;
+    }
+
+    #like-logo, #dislike-logo {
+    transition: transform 0.2s ease;
+  }
+
+  #like-logo:hover , #dislike-logo:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+
+
+    #post-body {
+        color: gray;
+        width: 95%;
+        border-radius: 0.375rem;
+        padding: 0.625rem;
+        background-color: #1E1E1E;
+        height: 6.25rem;
+        font-size: 1.2rem;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #post-details {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #date-box,
+    #comment-box,
+    #liked-box,
+    #dislike-box {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+    }
+
+    #comment-logo,
+    #like-logo,
+    #date-logo,
+    #dislike-logo {
+        width: 1.875rem;
+        height: 1.875rem;
+        color: white;
+    }
+
+    #comments,
+    .likes,
+    #date,
+    .dislikes {
+        text-align: center;
+        padding-top: 0.125rem;
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+    .like-dislike-button {
+        background-color: #1E1E1E;
+        border: 0;
+    }
+
+    #categories-list {
+        background-color: #3a3b3bcd;
+        text-align: center;
+        padding-top: 0.125rem;
+        padding: 0.4375rem;
+        color: gray;
+        font-size: 1rem;
+        border-radius: 0.3125rem;
+    }
+
+    #Category-bx {
+        display: flex;
+        align-items: center;
+        padding: 0 0.25rem;
+        border-radius: 0.3125rem;
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #444 #2b2c2d;
+    }
+
+    *::-webkit-scrollbar {
+        width: 0.9375rem;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: #2b2c2d;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #444;
+        border-radius: 1.25rem;
+        border: 0.1875rem solid #2b2c2d;
+    }
+
+    #next-prev {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1.25rem;
+    }
+
+    #prev-page,
+    #next-page {
+        width: 5.625rem;
+        height: 3.125rem;
+        background-color: #444444;
+        color: white;
+        padding: 0.625rem 1.25rem;
+        border: none;
+        border-radius: 0.3125rem;
+        cursor: pointer;
+        margin: 0 0.625rem;
+        font-size: 1rem;
+        padding: 0.3125rem;
+    }
+
+    #prev-page:hover,
+    #next-page:hover {
+        background-color: #555555;
+    }
+
+    #page-number {
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    #no-posts {
+        font-size: 1.5em;
+        color: #888;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+
+    .post-link:hover,
+    .post-link {
+        text-decoration: none;
+    }
+
+    #pages {
+        display: none;
+    }
+</style>
