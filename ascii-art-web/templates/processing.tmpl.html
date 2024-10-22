@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascii art web</title>
+    <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/script.js"></script>
+</head>
+
+<body> 
+    <form class="input-container" action="/ascii-art/" method="POST">
+        <div class="logo-container">
+            <img id="logo" src="/static/images/logo.png" alt="logo">
+        </div>
+        <div class="input">
+            <label for="input-text">Enter text here:</label>
+            <br>
+            <textarea id="input-text" name="InputValue" required></textarea>
+            <br>
+            <div class="font-section">
+                <label for="input-font">Select font: </label>
+                <select name="font" id="input-font">
+                    <option value="standard">Standard</option>
+                    <option value="shadow">Shadow</option>
+                    <option value="thinkertoy">Thinkertoy</option>
+                </select>
+            </div>
+            <button id="submit">Submit</button>
+        </div>
+    </form>
+    <!-- <a href="/panic">
+        <button id="submit" >panic</button>
+    </a> -->
+
+    <div class="result-container">
+        <h1>Output</h1>
+        <div class="result" id="result">
+            <pre>{{.}}</pre>
+        </div>
+
+</body>
+
+</html>

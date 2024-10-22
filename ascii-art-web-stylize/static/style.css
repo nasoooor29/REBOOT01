@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+    /* height: 100vh; */
+}
+
+main {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+/* Basic styling for header */
+header {
+    background-color: #434343;
+    color: white;
+    padding: 10px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-container h1 {
+    font-size: 1.5rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.hamburger {
+    display: none;
+    /* Initially hide hamburger menu for larger screens */
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 5rem;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+
+#input {
+    resize: none;
+    height: 10rem;
+    color: white;
+    background-color: #434343;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+form button {
+    background-color: #518458;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    width: 80%;
+    border-color: #518458;
+}
+
+form select {
+    padding: 5px;
+    border-radius: 5px;
+    width: 20%;
+    background-color: #434343;
+    color: white;
+    border-color: #434343;
+}
+
+
+#result {
+    color: white;
+    width: 100%;
+}
+
+#result pre {
+    background-color: #434343;
+    color: white;
+    padding: 10px;
+    height: 15rem;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#result pre::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+#result pre::-webkit-scrollbar-track {
+    background: rgba(11, 11, 11, 0.05);
+    /* color of the tracking area */
+}
+
+#result pre::-webkit-scrollbar-thumb {
+    background-color: rgb(11, 11, 11, 0.5);
+    border-radius: 20px;
+}
+
+#result pre::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+
+.submittion-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+    .nav-links {
+
+        display: none;
+        /* Hide nav links on smaller screens */
+        flex-direction: column;
+        position: absolute;
+        top: 49px;
+        left: 0;
+        background-color: #434343;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex;
+        /* Show nav links when active class is applied */
+    }
+
+    .hamburger {
+        display: block;
+        /* Show hamburger menu for smaller screens */
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px 0;
+        transition: 0.4s;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    main {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .submittion-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    form button {
+        width: auto;
+    }
+
+    form select {
+        width: 100%;
+    }
+}

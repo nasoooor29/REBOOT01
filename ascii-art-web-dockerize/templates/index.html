@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascii art web</title>
+    <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <nav>
+                <div class="logo-container">
+                    <h1><a href="/" style="text-decoration: none; color: white;">ASCII</a></h1>
+                </div>
+                <div class="nav-links">
+                    <a class="nav-item" href="/400">Send arabic characters</a>
+                    <a class="nav-item" href="/anyNotFound">Not found</a>
+                    <a class="nav-item" href="/panic">Panic</a>
+                </div>
+            </nav>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <form action="/ascii-art" method="POST">
+            <textarea id="input" name="InputValue" required id="input" maxlength="100" placeholder="Enter your text here"></textarea>
+            <div class="submittion-container">
+                <select id="input-font" name="InputFont" >
+                    <option value="standard">Standard</option>
+                    <option value="shadow">Shadow</option>
+                    <option value="thinkertoy">Thinkertoy</option>
+                </select>
+                <button>Submit</button>
+
+            </div>
+        </form>
+        <div id="result">
+            <h2>Result</h2>
+            <pre id="output">{{.Value}}</pre>
+        </div>
+    </main>
+
+</body>
+
+</html>
