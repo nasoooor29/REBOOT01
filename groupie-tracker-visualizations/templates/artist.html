@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/css-reset.css" />
+  <link rel="stylesheet" href="/static/artStyling.css" />
+  <link rel="shortcut icon" href="/static/favicon.jpg" type="image/x-icon">
+  <title>{{.ArtistObj.Name}}</title>
+</head>
+
+<body>
+  <nav>
+    <a href="/">
+      < Home Page</a>
+  </nav>
+  <div id="container">
+    <div class="container-child" id="logo-container">
+      <div class="artist-content">
+        <h1>{{.ArtistObj.Name}} ({{.ArtistObj.CreationDate}})</h1>
+        <h2>First Album: {{.ArtistObj.FirstAlbum}}</h2>
+      </div>
+      <img class="display-images" src="{{.ArtistObj.Image}}" />
+    </div>
+
+    <div class="container-child " id="band-members">
+      <div>
+        <h2 class="container-title">Band Members</h2>
+        {{range .ArtistObj.Members}}
+        <p class="members">{{.}}</p>
+        {{end}}
+  
+      </div>
+    </div>
+    <div class="container-child" id="band-events">
+      <h2 class="container-title">Band Events</h2>
+      <tbody>
+        <table>
+          <tr>
+            <th>Location</th>
+            <th>Dates</th>
+          </tr>
+          {{range $key, $value := .RelationObj}}
+          <tr>
+            <td class="loc">{{$key}}</td>
+            <td>{{range $value}}
+              <p>{{.}}</p>
+              {{end}} {{end}}
+            </td>
+          </tr>
+        </table>
+      </tbody>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+#title-container {
+  height: 50px;
+  width: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: darkgray;
+  text-align: center;
+  padding: 1rem 0px;
+  font-size: x-large;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  font-weight: bold;
+}
+
+#title-container h1 {
+  margin: 0px;
+}
+
+#wrapper-div {
+  margin: auto;
+  height: 100%;
+  background-color: gray;
+}
+.temp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 33px;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.display-images {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.temp a {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+
+.artist-content {
+  position: absolute;
+  bottom: 0px;
+  background: linear-gradient(to bottom, transparent 0%, black 100%);
+  width: 100%;
+  height: 8rem;
+  border-radius: 1rem;
+}
+
+.artist-content h2 {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 1rem;
+  color: white;
+}

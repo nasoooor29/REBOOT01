@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groupie Tracker</title>
+  <link rel="stylesheet" href="/static/css-reset.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="shortcut icon" href="/static/favicon.jpg" type="image/x-icon">
+</head>
+
+<body>
+  <div id="wrapper-div">
+    <div id="title-container">
+      <h1>Groupie Tracker</h1>
+    </div>
+    <div class="temp">
+      {{range .}}
+      <a href="/artist/{{.ID}}" {{if lt .ID 8}} loading="lazy" {{end}}>
+        <div class="artist-content">
+          <h2>{{.Name}}</h2>
+        </div>
+        <img class="display-images" src="{{.Image}}" />
+      </a>
+      {{end}}
+    </div>
+  </div>
+</body>
+
+</html>

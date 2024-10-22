@@ -1,0 +1,45 @@
+:root {
+    --p-bg: #1E2022;
+    --s-bg: #181A1B;
+    --t-bg: #373C3E;
+
+    --p-font: #E2DFDB;
+    --s-font: #CDC8C9;
+    --t-font: #A0978B;
+
+    --accent: #B41739;
+
+    --img-width: 20rem;
+    --radius: 0.5rem;
+}
+
+h1, p {
+    width: fit-content;
+}
+
+body {
+    background-color: var(--p-bg);
+    color: var(--p-font);
+    min-width: 100dvw;
+    min-height: 100dvh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+body div {
+    border: 1px solid var(--p-font);
+    width: 25rem;
+    padding: 2rem;
+}
+a {
+    color: var(--t-font);
+    font-weight: bold;
+}
